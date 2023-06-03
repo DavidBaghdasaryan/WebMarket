@@ -1,13 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using WebMarket.DbData;
+using WebMarket.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<MarketDbContext>(dbContextOptions =>
-      dbContextOptions.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))); 
-
+      dbContextOptions.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddScoped<IRepository<Product>, Repository<Product>>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

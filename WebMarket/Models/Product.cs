@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebMarket.Models
 {
@@ -11,5 +12,7 @@ namespace WebMarket.Models
         public string Description { get; set; }
         [Required]
         public string Tipe { get; set; }
+        [ValidateNever]
+        public string ImageUrl { get; set; }
     }
 }
