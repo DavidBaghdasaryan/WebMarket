@@ -1,7 +1,12 @@
+using Microsoft.EntityFrameworkCore;
+using WebMarket.DbData;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<MarketDbContext>(dbContextOptions =>
+      dbContextOptions.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))); 
 
 var app = builder.Build();
 
