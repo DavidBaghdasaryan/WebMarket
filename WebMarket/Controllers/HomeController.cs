@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using WebMarket.DbData;
 using WebMarket.Models;
 
 namespace WebMarket.Controllers
@@ -7,14 +8,16 @@ namespace WebMarket.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IRepository<Product> _productsRepository;
+        public HomeController(ILogger<HomeController> logger, IRepository<Product> productsRepository)
         {
             _logger = logger;
+            _productsRepository = productsRepository;
         }
 
         public IActionResult Index()
         {
+         
             return View();
         }
 

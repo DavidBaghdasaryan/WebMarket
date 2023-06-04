@@ -1,32 +1,74 @@
-﻿@model Product
+﻿@model IEnumerable<Product>
 <form method="post">
+    <div class="row">
+        <div class="col-6 ">
+            <a asp-controller="Home" class="btn btn-outline-primary bg-gradient mb-5 fw-semibold btn-sm text-uppercase">
+                <small>Back to home</small>
+            </a>
+        </div>
+    </div>
     <div class="card shadow border-0 mt-4 mb-4">
-        
-        <div class="card-body">
-            <div class="py-3">
-                <div class="row">
-                    <div class="col-6 col-md-2 offset-lg-1 pb-1">
-                        <a asp-action="Index" class="btn btn-outline-primary bg-gradient mb-5 fw-semibold btn-sm text-uppercase">
-                            <small>Back to home</small>
-                        </a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-lg-3 offset-lg-1 text-center mb-3">
-                        <img src="@Model.ImageUrl" width="100%" class="rounded" />
-                    </div>
-               
-                        <div class="row">
-                        <div class="col-6 text-end">
-                            <a asp-controller="Product" asp-action="UpSert" class="btn btn-primary">
-                                <i class="bi bi-plus-circle"></i>  Create New Product
-                            </a>
-                        </div>
-                        </div>
-                    </div>
-
-                </div>
+        <div class="row p-3 pb-3 mx-2">
+            <div class="col-6">
             </div>
+            <div class="col-6 text-end">
+                <a asp-controller="Product" asp-action="UpSert" class="btn btn-primary">
+                    <i class="bi bi-plus-circle"></i>  Create New Product
+                </a>
+            </div>
+        </div>
+      
+        <div class="row pb-3 mx-2">
+            @foreach (var product in Model)
+            {
+                <div class="col-lg-3 col-sm-6">
+                    <div class="row p-2">
+                        <div class="col-12 p-1">
+                            <div class="card border-0 p-3 shadow border-top border-10 rounded">
+                                <img src="@product.ImageUrl" class="card-img-top rounded" />
+                                <div class="card-body pb-0">
+
+
+                                    <div class="pl-1">
+                                        <p class="card-title h5 text-dark opacity-75 text-uppercase text-center">@product.Name</p>
+                                        <p class="card-title  text-warning  text-center">by <b>@product.Name</b></p>
+                                    </div>
+                                    <div class="pl-1">
+                                        <p class="text-dark  text-opacity-75 text-center mb-0">
+                                            Description:
+                                            <span class="text-decoration">
+                                                @product.Description
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <div class="pl-1">
+                                        <p class="text-dark  text-opacity-75 text-center">
+                                            Product tipe is:
+                                            <span>
+                                                @product.Tipe
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <div class="row p-1">
+                                        <div class="col-6 text-start">
+                                            <input asp-for="@product.Id" hidden />
+                                            <a asp-controller="Product" asp-action="UpSert" asp-route-prodId="@product.Id" class="btn btn-primary  mx-2">
+                                                <i class="bi bi-plus-circle"></i>Edit
+                                            </a>
+                                        </div>
+                                        <div class="col-6 text-end">
+                                            <a asp-controller="Product" asp-action="UpSert" class="btn btn-danger mx-2">
+                                                <i class="bi bi-plus-circle"></i>Delete
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     </div>
 </form>
+

@@ -18,26 +18,20 @@ namespace WebMarket.Controllers
         }
         public IActionResult Index() 
         {
-            Product product = new Product();
-            ///product.ImageUrl = "C:\\Users\\david\\source\\repos\\Bulk\\BulkWeb\\wwwroot\\Images\\product\\630d5d64-b8c8-4d60-8821-f7ff79dfbd73.jpg";
-            return View(product);
+            var productList = _productsRepository.GetAll().ToList();
+            return View(productList);
         }
-        public IActionResult UpSert(int? id)
+        public IActionResult UpSert(int? prodId)
         {
-            Product Product = new()
+            Product Product = _productsRepository.Get(x => x.Id == prodId);
+           
+            if (prodId == null || prodId == 0)
             {
-                
-                
-            };
-            if (id == null || id == 0)
-            {
-                return View(Product);
+                Product=new Product();
+             
             }
-            else
-            {
-                
-                return View(Product);
-            }
+            return View(Product);
+            
 
         }
         [HttpPost]
