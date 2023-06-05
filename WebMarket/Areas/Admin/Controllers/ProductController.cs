@@ -5,18 +5,19 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using WebMarket.DbData;
 using WebMarket.Models;
 
-namespace WebMarket.Controllers
+namespace WebMarket.Areas.Admin.Controllers
 {
-    public class ProductController:Controller
+    [Area("Admin")]
+    public class ProductController : Controller
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IRepository<Product> _productsRepository;
         public ProductController(IWebHostEnvironment webHostEnvironment, IRepository<Product> productsRepository)
         {
-            _webHostEnvironment= webHostEnvironment;
-            _productsRepository= productsRepository;
+            _webHostEnvironment = webHostEnvironment;
+            _productsRepository = productsRepository;
         }
-        public IActionResult Index() 
+        public IActionResult Index()
         {
             var productList = _productsRepository.GetAll().ToList();
             return View(productList);
@@ -24,14 +25,14 @@ namespace WebMarket.Controllers
         public IActionResult UpSert(int? prodId)
         {
             Product Product = _productsRepository.Get(x => x.Id == prodId);
-           
+
             if (prodId == null || prodId == 0)
             {
-                Product=new Product();
-             
+                Product = new Product();
+
             }
             return View(Product);
-            
+
 
         }
         [HttpPost]
@@ -73,7 +74,7 @@ namespace WebMarket.Controllers
             }
             else
             {
-               
+
                 return View(Product);
             }
         }

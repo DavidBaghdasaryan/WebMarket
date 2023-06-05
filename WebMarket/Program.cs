@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebMarket.DbData;
 using WebMarket.Models;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +9,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<MarketDbContext>(dbContextOptions =>
       dbContextOptions.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<MarketDbContext>();
+builder.Services.AddRazorPages();
 builder.Services.AddScoped<IRepository<Product>, Repository<Product>>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,11 +28,11 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
-
+app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

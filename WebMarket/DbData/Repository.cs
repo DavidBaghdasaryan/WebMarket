@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using WebMarket.Models;
 
 namespace WebMarket.DbData
 {
@@ -62,6 +63,10 @@ namespace WebMarket.DbData
         public void RemoveRange(IEnumerable<T> items)
         {
             dbSet.RemoveRange(items);
+        }
+        public List<Product> ProductList()
+        {
+            return _dbContext.Products.ToList();
         }
     }
 }
