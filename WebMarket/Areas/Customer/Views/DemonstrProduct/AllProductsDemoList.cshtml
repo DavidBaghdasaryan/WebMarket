@@ -17,7 +17,7 @@
                 </a>
             </div>
         </div>
-      
+
         <div class="row pb-3 mx-2">
             @foreach (var product in Model)
             {
@@ -64,19 +64,6 @@
                                                 @product.Tipe
                                             </span>
                                         </p>
-                                    </div>
-                                    <div class="row p-1">
-                                        <div class="col-6 text-start">
-                                            <input asp-for="@product.Id" hidden />
-                                            <a asp-controller="Product" asp-action="UpSert" asp-route-prodId="@product.Id" class="btn btn-primary  mx-2">
-                                                <i class="bi bi-plus-circle"></i>Edit
-                                            </a>
-                                        </div>
-                                        <div class="col-6 text-end">
-                                            <a asp-controller="Product" asp-action="UpSert" class="btn btn-danger mx-2">
-                                                <i class="bi bi-plus-circle"></i>Delete
-                                            </a>
-                                        </div>
                                     </div>
                                 </div>
                             </div>

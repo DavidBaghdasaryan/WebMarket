@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using WebMarket.DbData;
 using WebMarket.Models;
 using Microsoft.AspNetCore.Identity;
+using WebMarket.Utility;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,10 +12,10 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<MarketDbContext>(dbContextOptions =>
       dbContextOptions.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<MarketDbContext>();
+builder.Services.AddIdentity<IdentityUser,IdentityRole>().AddEntityFrameworkStores<MarketDbContext>().AddDefaultTokenProviders();
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IRepository<Product>, Repository<Product>>();
-
+builder.Services.AddScoped<IEmailSender, EmailSender>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

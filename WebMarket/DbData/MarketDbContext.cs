@@ -12,6 +12,7 @@ namespace WebMarket.DbData
 
         }
         public DbSet<Product> Products { get; set; }
+        public DbSet<MarketUser> MarketUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
