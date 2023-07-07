@@ -12,6 +12,10 @@ namespace WebMarket.Models
         public string Description { get; set; }
         [Required]
         public string Tipe { get; set; }
+        [Required]
+        public decimal StartingCost { get; set; }
+        [Required]
+        public decimal Cost { get; set; }
         [ValidateNever]
         public string ImageUrl { get; set; }
     }
