@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using WebMarket.DbData;
@@ -78,5 +79,41 @@ namespace WebMarket.Areas.Admin.Controllers
                 return View(Product);
             }
         }
+     
+        public IActionResult Delete(int? prodId)
+        {
+            Product product = _productsRepository.Get(x => x.Id == prodId);
+
+            if (product == null)
+            {
+                return Json(new { success = false, message = "Error while deleting" });
+            }
+            var oldImagePath =
+                           Path.Combine(_webHostEnvironment.WebRootPath,
+                           product.ImageUrl.TrimStart('\\'));
+
+            if (System.IO.File.Exists(oldImagePath))
+            {
+                System.IO.File.Delete(oldImagePath);
+            }
+            if (product != null)
+            {
+                _productsRepository.Remove(product);
+            }
+            _productsRepository.Save();
+
+            var productList = _productsRepository.GetAll().ToList();
+
+
+            TempData["Message"] = "Item deleted successfully.";
+
+
+            
+            return View("Index", productList);
+
+
+        }
+        
+
     }
 }
