@@ -107,8 +107,6 @@ namespace WebMarket.Areas.Admin.Controllers
 
             TempData["Message"] = "Item deleted successfully.";
 
-
-            
             return View("Index", productList);
 
 
