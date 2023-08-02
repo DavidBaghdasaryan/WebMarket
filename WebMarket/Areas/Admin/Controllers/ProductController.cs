@@ -101,7 +101,7 @@ namespace WebMarket.Areas.Admin.Controllers
                 _productsRepository.Remove(product);
             }
             _productsRepository.Save();
-
+             
             var productList = _productsRepository.GetAll().ToList();
 
 
